@@ -1,6 +1,5 @@
 **Second Prompt:**
 
-Here's a Round 2 prompt. It covers the three rules from your Next Step, and it also asks for the missing \`main\` loop, which your analysis already flagged under "Other gaps." That saves you a whole round.  
 Your code has a few problems when I check it against my assignment spec. Two of your own test cases give the wrong answer: \`server at 10.0.0.1.\` and \`addr=8.8.8.8:\` both return 1, but the spec says both should return 0\. Here are the rules you're missing:
 
 1\. Whole-token rule: Only digits, \`.\`, and \`:\` can be part of an address token. Every other character is garbage and separates tokens. A candidate token must match the grammar in full. No partial matches, and no trimming or pulling a valid piece out of a longer run. So a stray \`.\` or \`:\` directly touching the address makes the whole token invalid (e.g. \`10.0.0.1.\`, \`.1.1.1.1\`, \`1.1.1.1:80:\`).  
@@ -50,7 +49,36 @@ The rules that already worked (octet format, scanning past failed candidates, no
 
 **Second Test Results(from my own testing):**
 
-\[Paste the output from my own run of the Version 2 code here: (1) the demo build, gcc \-DTEST\_EXTRACT extract\_ipv4.c \-o test.exe then .\\test.exe; (2) the demo with my added cases; (3) the interactive program, gcc extract\_ipv4.c \-o ipv4.exe then .\\ipv4.exe.\]  
+is this a good output. Does this match the output from the directions? Or is this satisfactory?  
+ PASS 192.168.1.1 \-\> 1 addr=0xC0A80101 port=-1  
+ PASS connect to 192.168.1.1:8080 now \-\> 1 addr=0xC0A80101 port=8080  
+ PASS server at 10.0.0.1. \-\> 0 addr=0x00000000 port=-1  
+ PASS 0.0.0.0 \-\> 1 addr=0x00000000 port=-1  
+ PASS 255.255.255.255:65535 \-\> 1 addr=0xFFFFFFFF port=65535  
+ PASS addr=8.8.8.8: \-\> 0 addr=0x00000000 port=-1  
+ PASS 256.1.1.1 \-\> 0 addr=0x00000000 port=-1  
+ PASS 1.2.3 \-\> 0 addr=0x00000000 port=-1  
+ PASS 1.2.3.4.5 \-\> 0 addr=0x00000000 port=-1  
+ PASS 1234.1.1.1 \-\> 0 addr=0x00000000 port=-1  
+ PASS 01.2.3.4 \-\> 0 addr=0x00000000 port=-1  
+ PASS 1.2.3.4:65536 \-\> 0 addr=0x00000000 port=-1  
+ PASS 1.2.3.4:123456 \-\> 0 addr=0x00000000 port=-1  
+ PASS bad 999.1.1.1 then good 1.1.1.1:22 \-\> 1 addr=0x01010101 port=22  
+ PASS no address here \-\> 0 addr=0x00000000 port=-1  
+ PASS \-\> 0 addr=0x00000000 port=-1  
+ PASS .1.1.1.1 \-\> 0 addr=0x00000000 port=-1  
+ PASS 1.1.1.1:80: \-\> 0 addr=0x00000000 port=-1  
+ PASS 1.1.1.1: \-\> 0 addr=0x00000000 port=-1  
+ PASS 1.1.1.1::80 \-\> 0 addr=0x00000000 port=-1  
+ PASS 1.1.1.1:080 \-\> 0 addr=0x00000000 port=-1  
+ PASS 1.1.1.1:00 \-\> 0 addr=0x00000000 port=-1  
+ PASS 1.1.1.1:0 \-\> 1 addr=0x01010101 port=0  
+ PASS ip=10.0.0.1, next \-\> 1 addr=0x0A000001 port=-1  
+ PASS 10.0.0.1. then 10.0.0.2:443 \-\> 1 addr=0x0A000002 port=443  
+ PASS x1.2.3.4y \-\> 1 addr=0x01020304 port=-1
+
+26/26 passed
+
  
 
 **Analysis of Round 2 Output:**
