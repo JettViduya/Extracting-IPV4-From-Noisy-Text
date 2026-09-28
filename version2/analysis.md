@@ -90,7 +90,7 @@ What it fixed: All three rules from my Round 2 prompt are now implemented, and t
 
 The AI's test runner now checks its own results. In Version 1 it only printed output; now each case stores an expected value and prints PASS or FAIL. The two cases I flagged have corrected expectations, and all 26 cases pass.  
    
-My own cases: I added 1:2.3.4.5 (a valid-looking address inside a longer malformed token), 1.1.1.9999999999 (a huge octet, to test overflow) and 12:30:45 host 9.9.9.9 (timestamp noise before a valid address). All three pass. The first one matters most: the AI's tests never checked for a valid piece inside a bad token, and the Version 1 logic would have returned 2.3.4.5.  
+My own cases: I added 1:2.3.4.5 (a valid-looking address inside a longer malformed token), 1.1.1.9999999999 (a huge octet, to test overflow) and 12:30:45 host 9.9.9.9 (timestamp noise before a valid address). All three pass. The first one matters most: the AI's tests never checked for a valid piece inside a bad token, and the Version 1 logic would have returned 2.3.4.5. (Full results in `TEST_CASES.md`.)  
    
 Interactive program: main now loops until END, prints Extracted IPv4 address: A.B.C.D (decimal value: N, port: P) with none when there is no port, prints a failure message otherwise, and prints Program terminated. at the end. Lowercase end does not quit, which matches the case-sensitive requirement.  
  
